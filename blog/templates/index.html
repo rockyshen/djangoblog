@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+    <div class="category">
+    {% for category in categories %}
+        <p class="category__title">{{ category.title }}
+            <i class="category__line">/</i>
+        </p>
+    {% endfor %}
+    </div>
+
+    <div class="grid grid--3X4">
+    {% for article in articles %}
+        <div class="card card__body">
+            <p class="article__title">{{ article.title }}</p>
+            <p class="article__body">{{ article.body }}</p>
+            <div class="article__footer">
+                <p>{{ article.category.title }}</p>
+                <img src="{% static '/svg/view.svg' %}" alt="view" class="view__logo">
+                <p class="article__views">{{ article.views }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
