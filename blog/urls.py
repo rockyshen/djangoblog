@@ -11,3 +11,5 @@ router.register('articles',views.ArticleViewSet)
 urlpatterns = [
     path('',include(router.urls)),
 ]
+
+# name参数，定义该条url配置规则的别名，方便在{% url %}中引用

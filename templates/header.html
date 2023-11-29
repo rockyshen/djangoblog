@@ -1,12 +1,23 @@
 {% load static %}
 
 <header class="nav">
-    <div class="navbar">
-        <h1 class="web__title">Rocky的独立博客</h1>
-        <span class="social">
-            <a class="about">关于</a>
-            <img src="{% static '/svg/twitter.svg' %}" alt="twitter logo" class="social__logo">
-            <img src="{% static '/svg/github.svg' %}" alt="github logo" class="social__logo">
-        </span>
-    </div>
+  <div class="navbar">
+    <a href="#" class="web">
+      <h1 class="web__title">Rocky的独立博客</h1>
+    </a>
+    <!-- <img src="{% static '/svg/web_logo.webp' %}" class="web__logo"> -->
+    <span class="social">
+      <a class="about">关于</a>
+      <img
+        src="{% static '/svg/twitter.svg' %}"
+        alt="twitter logo"
+        class="social__logo"
+      />
+      <img
+        src="{% static '/svg/github.svg' %}"
+        alt="github logo"
+        class="social__logo"
+      />
+    </span>
+  </div>
 </header>

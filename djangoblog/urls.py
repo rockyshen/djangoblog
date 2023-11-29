@@ -28,3 +28,4 @@ urlpatterns = [
 # 添加以下代码以在开发期间提供静态文件和媒体文件。
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

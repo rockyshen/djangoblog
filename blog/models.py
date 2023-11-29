@@ -1,6 +1,7 @@
 from django.db import models
 from markdownx.models import MarkdownxField
 from django.conf import settings
+from blog.validators import validate_file_size
 
 # Create your models here.
 class Category(models.Model):
@@ -57,6 +58,7 @@ class Article(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, on_delete=models.CASCADE)    # 当AUTH_USER_MODEL中的用户被删除时，与之关联的作者也删除
     category = models.ForeignKey(Category, null=False, blank=False, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
+    cover_img = models.ImageField(null=True, upload_to='blog/cover', validators=[validate_file_size])
 
     class Meta:
         ordering = ['-article_order','-pub_time']

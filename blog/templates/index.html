@@ -4,7 +4,8 @@
 {% block content%}
     <div class="category">
     {% for category in categories %}
-        <p class="category__title">{{ category.title }}
+        <p class="category__title">
+            <a href="?category_id={{ category.id }}" class="category__link">{{ category.title }}</a>
             <i class="category__line">/</i>
         </p>
     {% endfor %}
@@ -13,10 +14,11 @@
     <div class="grid grid--3X4">
     {% for article in articles %}
         <div class="card card__body">
-            <p class="article__title">{{ article.title }}</p>
-            <p class="article__body">{{ article.body }}</p>
+            <a href="{% url 'article-detail' pk=article.id %}"  class="cover">
+                <img src="{{ article.cover_img }}" alt="Cover Image" class="cover__img">
+                <p class="article__title">{{ article.title }}</p>
+            </a>
             <div class="article__footer">
-                <p>{{ article.category.title }}</p>
                 <img src="{% static '/svg/view.svg' %}" alt="view" class="view__logo">
                 <p class="article__views">{{ article.views }}</p>
             </div>

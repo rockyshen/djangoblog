@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+    <div class="article">
+        <div id="article-content">{{ article.body|safe }}</div>
+    </div>
+{% endblock %}

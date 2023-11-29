@@ -3,6 +3,8 @@ from .models import Article, Category
 from rest_framework.viewsets import ModelViewSet
 from blog.serializers import ArticleSerializer
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from django.views import View
 
 # Create your views here.
 # def queryall(request):
@@ -17,6 +19,11 @@ class ArticleViewSet(ModelViewSet):
     # 重写list方法，返回值从“serializer.data“改为render渲染到模版中，并通过字典传递serializer.data
     def list(self,request, *arg, **kwarg):
         queryset = self.get_queryset()
+
+        category_id = request.GET.get('category_id')
+
+        if category_id:
+            queryset = queryset.filter(category__id = category_id)
         serializer = self.get_serializer(queryset, many=True)
 
         # 获取所有 Category 数据
@@ -28,3 +35,13 @@ class ArticleViewSet(ModelViewSet):
             'categories': categories,
         }
         return render(request, 'index.html', context)
+
+    # 重写retrieve方法,实现article/pk的访问
+    def retrieve(self,request, *arg, **kwarg):
+        instance = get_object_or_404(Article, pk=kwarg['pk'])
+        serializer = self.get_serializer(instance)
+
+        context = {
+            'article':serializer.data,
+        }
+        return render(request, 'detail.html', context)
