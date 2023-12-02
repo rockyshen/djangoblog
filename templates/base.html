@@ -10,6 +10,7 @@
     </title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}"/> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/markdownx.css' %}">
 </head>
 <body>
     {% include 'header.html' %}
@@ -17,5 +18,6 @@
         {% block content %}{% endblock %}
     </div>
     {% include 'footer.html' %}
+    <script src="{% static 'javascript/markdownx.js' %}"></script>
 </body>
 </html>

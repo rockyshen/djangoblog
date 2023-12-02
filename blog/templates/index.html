@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block content%}
     <div class="category">
@@ -19,6 +20,9 @@
                 <p class="article__title">{{ article.title }}</p>
             </a>
             <div class="article__footer">
+                {% timezone "Asia/Shanghai" %}
+                    <p class="article__date">{{ article.pub_time|date:"c" }}</p>
+                {% endtimezone %}
                 <img src="{% static '/svg/view.svg' %}" alt="view" class="view__logo">
                 <p class="article__views">{{ article.views }}</p>
             </div>

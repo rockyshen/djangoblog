@@ -5,6 +5,7 @@ from blog.serializers import ArticleSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.views import View
+import markdown
 
 # Create your views here.
 # def queryall(request):
@@ -39,6 +40,7 @@ class ArticleViewSet(ModelViewSet):
     # 重写retrieve方法,实现article/pk的访问
     def retrieve(self,request, *arg, **kwarg):
         instance = get_object_or_404(Article, pk=kwarg['pk'])
+        instance.viewed()
         serializer = self.get_serializer(instance)
 
         context = {

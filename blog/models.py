@@ -1,5 +1,7 @@
 from django.db import models
 from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
+from mdeditor.fields import MDTextField
 from django.conf import settings
 from blog.validators import validate_file_size
 
@@ -48,12 +50,12 @@ class Article(models.Model):
     )
 
     title = models.CharField(max_length=255, unique=True)
-    body = MarkdownxField()
+    body = MDTextField()
     pub_time = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     # comment_status = models.CharField(max_length=1, choices=COMMENT_STATUS_CHOICES)
     type = models.CharField(max_length=1, choices=TYPE)
-    views = models.PositiveIntegerField(default=0)      # 重写逻辑，+=1
+    views = models.PositiveIntegerField(default=0)      # 在views.py的def retrieve函数中调用！
     article_order = models.IntegerField(default=0)    # 重写逻辑，+=1
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, blank=False, on_delete=models.CASCADE)    # 当AUTH_USER_MODEL中的用户被删除时，与之关联的作者也删除
     category = models.ForeignKey(Category, null=False, blank=False, on_delete=models.CASCADE)
@@ -71,3 +73,13 @@ class Article(models.Model):
     def viewed(self):
         self.views += 1
         self.save(update_fields=['views'])
+
+    def save(self, *args, **kwargs):
+        if not self.article_order:
+            # 如果 article_order 字段没有值，为其生成一个适当的值
+            max_order = Article.objects.aggregate(models.Max('article_order'))['article_order__max']
+            if max_order is not None:
+                self.article_order = max_order + 1
+            else:
+                self.article_order = 1
+        super().save(*args, **kwargs)

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_extras %}
 
 {% block content%}
     <div class="article">
-        <div id="article-content">{{ article.body|safe }}</div>
+        <p>{{ article.body|convert_markdown|safe }}</p>
     </div>
 {% endblock %}
