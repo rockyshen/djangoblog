@@ -146,3 +146,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 以下为指定auth.User类，不适用框架默认的声明，手动加的，默认模板是没有的！  
 AUTH_USER_MODEL = 'core.User'
+
+# 以下为REST框架的配置信息  
+REST_FRAMEWORK = {  
+    'COERCE_DECIMAL_TO_STRING':False,  
+    # 'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',  
+    # 'PAGE_SIZE':10,  
+}

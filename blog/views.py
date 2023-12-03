@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.views import View
 import markdown
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 # def queryall(request):
@@ -27,12 +28,26 @@ class ArticleViewSet(ModelViewSet):
             queryset = queryset.filter(category__id = category_id)
         serializer = self.get_serializer(queryset, many=True)
 
+        serializer = self.get_serializer(queryset,many=True)
+
         # 获取所有 Category 数据
         categories = Category.objects.all()
 
+        # 分页器
+        paginator = Paginator(serializer.data, 12)
+        page = request.GET.get('page')
+
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            articles = paginator.page(1)
+        except EmptyPage:
+            articles = paginator.page(paginator.num_pages)
+
+
         # 将 Article 数据和 Category 标题传递给模板
         context = {
-            'articles': serializer.data,
+            'articles': articles,
             'categories': categories,
         }
         return render(request, 'index.html', context)

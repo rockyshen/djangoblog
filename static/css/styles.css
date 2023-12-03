@@ -132,7 +132,7 @@ h3 {
 .container {
   flex:1;
   max-width:1140px;
-  margin:0 auto 3.2rem auto;
+  margin:0 auto 1rem auto;
   padding: 0 3.2rem 0 3.2rem;
 }
 
@@ -233,4 +233,42 @@ footer .container {
 footer a {
   text-decoration: none;
   color:#88888c;
+}
+
+/* 分页 */
+.pagination {
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 1.4rem;
+  margin-top: 5.5rem;
+  margin-bottom: 1rem;
+}
+
+.prev_next {
+  text-decoration: none;
+  border-radius: 5px;
+  padding:0.5rem 1.2rem 0.4rem 1.2rem;
+  box-shadow:0 0 30px 20px #f3f4f6;
+  color:#88888c;
+}
+
+.prev_next:hover {
+  color:#fb7185;
+}
+
+.current {
+  margin-left:1.5rem;
+  margin-right: 1.5rem;
+}
+
+.first,.last {
+  background-color: #d7d7d9;
+  color:#a4a5a6;
+}
+
+.first:hover,
+.last:hover {
+  background-color: #d7d7d9; /* 保持初始背景颜色 */
+  color: #a4a5a6; /* 保持初始文字颜色 */
 }

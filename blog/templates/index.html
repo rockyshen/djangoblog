@@ -29,4 +29,28 @@
         </div>
     {% endfor %}
     </div>
+
+    <!-- 在适当的位置渲染分页导航 -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if articles.has_next %}
+                <a href="?page=1" class="prev_next first">第一页</a>
+                <span class="current">
+                    {{ articles.number }}/{{ articles.paginator.num_pages }}
+                </span>
+                <a href="?page={{ articles.next_page_number }}" class="prev_next">下一页</a>
+                {% endif %}
+                
+            {% if articles.has_previous %}
+                <a href="?page={{ articles.previous_page_number }}" class="prev_next">上一页</a>
+                <span class="current">
+                    {{ articles.number }}/{{ articles.paginator.num_pages }}
+                </span>
+                <a href="?page={{ articles.paginator.num_pages }}" class="prev_next last">最后一页</a>
+            {% endif %}
+
+
+
+        </span>
+    </div>
 {% endblock %}
